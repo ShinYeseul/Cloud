@@ -1,0 +1,1417 @@
+
+components:
+    schemas:
+        user:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: "PK, AutoIncrement, NOT NULL"
+                user_id:
+                    type: string
+                    description: "UNIQUE, NOT NULL"
+                password:
+                    type: string
+                    description: "NOT NULL"
+                permission:
+                    type: integer
+                    description: "NOT NULL"
+                manage_site:
+                    type: integer
+                    description: "NOT NULL"
+                name: 
+                    type: string
+                    description: "NOT NULL"
+                phone: 
+                    type: string
+                    description: ""
+                address: 
+                    type: string
+                    description: ""
+                use_grant: 
+                    type: integer
+                    description: "NOT NULL, 0 = false, 1 = true"
+                create_date: 
+                    type: string
+                    description: "NOT NULL"
+                delete_date: 
+                    type: string
+                    description: ""
+                lastlogin_date: 
+                    type: string
+                    description: ""
+
+        site:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: "PK, AutoIncrement"
+                name:
+                    type: string
+                    description: "NOT NULL"
+                deleted:
+                    type: integer
+                    description: "NOT NULL, 0 = false, 1 = true"
+
+        workspace:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: "PK, AutoIncrement"
+                site_id:
+                    type: integer
+                    description: "FK(t_site), NOT NULL"
+                name:
+                    type: string
+                    description: "NOT NULL"
+                ip_address:
+                    type: string
+                    description: ""
+                type:
+                    type: integer
+                    description: "NOT NULL, 0 = cobot, 1 = amr, 2 = remote"
+                deleted:
+                    type: integer
+                    description: "NOT NULL, 0 = false, 1 = true"
+
+        equip: 
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: "PK, AutoIncrement"
+                ws_id:
+                    type: integer
+                    description: "FK(t_site_workspace), NOT NULL"
+                parent_id:
+                    type: integer
+                    description: "FK(t_equip)"
+                name:
+                    type: string
+                    description: ""
+                p_location:
+                    type: string
+                    description: "parking location position"
+                type:
+                    type: integer
+                    description: "FK(t_equip_type)"
+
+        equip_type:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: "PK, AutoIncrement"
+                name:
+                    type: string
+                    description: "NOT NULL"
+                descript:
+                    type: string
+                    description: ""
+                deleted:
+                    type: integer
+                    description: "NOT NULL, 0 = false, 1 = true"
+
+        amr:
+            type: object
+            properties:
+                equip_id:
+                    type: integer
+                    description: "FK, UNIQUE, NOT NULL"
+                position_x:
+                    type: number
+                    description: "NOT NULL"
+                position_y:
+                    type: number
+                    description: "NOT NULL"
+                position_z:
+                    type: number
+                    description: "NOT NULL"
+                rotation_u:
+                    type: number
+                    description: "NOT NULL"
+                rotation_v:
+                    type: number
+                    description: "NOT NULL"
+                rotation_w:
+                    type: number
+                    description: "NOT NULL"
+                status:
+                    type: integer
+                    description: "NOT NULL"
+                operation:
+                    type: integer
+                    description: "NOT NULL"
+                reg_date:
+                    type: string
+                    description: "NOT NULL"
+
+        cobot:
+            type: object
+            properties:
+                equip_id:
+                    type: integer
+                    description: "FK, UNIQUE, NOTNULL"
+                position_x:
+                    type: number
+                    description: "NOT NULL"
+                position_y:
+                    type: number
+                    description: "NOT NULL"
+                position_z:
+                    type: number
+                    description: "NOT NULL"
+                rotation_u:
+                    type: number
+                    description: "NOT NULL"
+                rotation_v:
+                    type: number
+                    description: "NOT NULL"
+                rotation_w:
+                    type: number
+                    description: "NOT NULL"
+                joint1:
+                    type: number
+                    description: "NOT NULL"
+                joint2:
+                    type: number
+                    description: "NOT NULL"
+                joint3:
+                    type: number
+                    description: "NOT NULL"
+                joint4:
+                    type: number
+                    description: "NOT NULL"
+                joint5: 
+                    type: number
+                    description: "NOT NULL"
+                joint6: 
+                    type: number
+                    description: "NOT NULL"
+                status: 
+                    type: integer
+                    description: "NOT NULL"
+                operation: 
+                    type: integer
+                    description: "NOT NULL"
+                gripper: 
+                    type: integer
+                    description: "NOT NULL"
+                reg_date: 
+                    type: string
+                    description: "NOT NULL"
+
+        camera:
+            type: object
+            properties:
+                equip_id:
+                    type: integer
+                    description: "FK, UNIQUE, NOTNULL"
+                url:
+                    type: string
+                    description: ""
+                url_sub:
+                    type: string
+                    description: ""
+                rotate_x:
+                    type: integer
+                    description: "NOT NULL"
+                rotate_y:
+                    type: integer
+                    description: "NOT NULL"
+                rotate_z:
+                    type: integer
+                    description: "NOT NULL"
+                reg_date:
+                    type: string
+                    description: "NOT NULL"
+
+        operation:
+            type: object
+            properties:
+                idx:
+                    type: integer
+                    description: "PK, AutoIncrement"
+                cobot_id:
+                    type: integer
+                    description: "FK(t_equip), NOT NULL"
+                amr_id:
+                    type: integer
+                    description: "FK(t_equip), NOT NULL"
+                task:
+                    type: integer
+                    description: "NOT NULL"
+                order_time:
+                    type: string
+                    description: "NOT NULL"
+                start_time:
+                    type: string
+                    description: ""
+                end_time:
+                    type: string
+                    description: ""
+
+        operation_object:
+            type: object
+            properties:
+                o_id:
+                    type: integer
+                    description: "FK(t_operation), NOT NULL"
+                cluster:
+                    type: string
+                    description: ""
+                moving:
+                    type: string
+                    description: ""
+                movedone:
+                    type: string
+                    description: ""
+
+        operation_task:
+            type: object
+            properties:
+                o_id:
+                    type: integer
+                    description: "FK(t_operation), NOT NULL"
+                task:
+                    type: integer
+                    description: "NOT NULL"
+                order_time:
+                    type: string
+                    description: "NOT NULL"
+                start_time:
+                    type: string
+                    description: ""
+                end_time:
+                    type: string
+                    description: ""
+
+    parameters:
+        site_id:
+              in: path
+              name: site_id
+              required: false
+              description: site ID
+              schema :
+                    type: integer
+
+    responses:
+        login:
+            Success:
+                description: Success
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Login Success"
+
+            WrongId:
+                description: Wrong ID
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "ID is invalid."
+
+            PermissionDenied:
+                description: Awaiting approval
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Waiting for permission.Please contact system administrator."
+
+            WrongPassword:
+                description: Wrong Password
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Passwords do not match."
+
+        200:
+            affect:
+                description: affectedRows Count
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Complete(affectedRows:1)"
+
+            editUser:
+                description: user 정보 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "User updated successfully!"
+
+            addUser:
+                description: user 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            deleteUser:
+                description: user 제거 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Delete Complete(affectedRows:1)"
+
+            sites:
+                description: site 목록 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             { "id": 1, "name": "GES_SEOUL" },
+                                             { "id": 2, "name": "GES_Dangin" },
+                                             { "id": 3, "name": "POLONUM" }
+                                             ]
+            equips:
+                description: 장치 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             { "id": 1,
+                                             "ws_id": 1,
+                                             "parent_id":null,
+                                             "name":"Indy7",
+                                             "p_location":"{\"position_x\":\"0.5009999\",\"position_y\":\"0\", \"position_z\":\"2.269\",\"rotation\":\"-90\"}",
+                                             "TYPE":1,
+                                             "child_count":3
+                                             }
+                                             ]
+
+            editEquip:
+                description: 장치 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            addEquip:
+                description: 장치 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            deleteEquip:
+                description: 장치 제거 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Delete Complete(affectedRows:1)"
+
+            types:
+                description: 장치 타입 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             {
+                                                "id": 1,
+                                                "name": "COBOT_ARM",
+                                                "descript": "Cobot Arm"
+                                             },
+                                             {
+                                                "id": 2,
+                                                "name": "MOBILE_ROBOT",
+                                                "descript": "AMR"
+                                             },
+                                             {
+                                                "id": 3,
+                                                "name": "HOLOLENS2",
+                                                "descript": "Hololens2"
+                                             },
+                                             {
+                                                "id": 4,
+                                                "name": "CCTV",
+                                                "descript": "IP Cam"
+                                             },
+                                             {
+                                                "id": 5,
+                                                "name": "RGBD_CAMERA",
+                                                "descript": "Depth Cam"
+                                             },
+                                             {
+                                                "id": 6,
+                                                "name": "PTZ_CAMERA",
+                                                "descript": "PTZ Cam"
+                                             }
+                                             ]
+
+            addType:
+                description: 장치 타입 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            editType:
+                description: 장치 타입 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            deleteType:
+                description: 장치 타입 제거 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Delete Complete(affectedRows:1)"
+
+            site:
+                description: site 정보 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             { "id": 1, "name": "GES_SEOUL" }
+                                             ]
+
+            editSite:
+                description: site 정보 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            
+
+            addSite:
+                description: site 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            deleteSite:
+                description: site 제거 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Delete Complete(affectedRows:1)"
+
+            workspaces:
+                description: workspace 목록 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             { "id": 1, "site_id": 1, "name": "Seoul Cobot Area", "ip_address": "192.168.3.2", "type": 0 },
+                                             { "id": 2, "site_id": 1, "name": "Seoul Remote Area", "ip_address": "192.168.3.2", "type": 2 }
+                                             ]
+            workspace:
+                description: workspace 정보 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: [
+                                             { "id": 1, "site_id": 1, "name": "Seoul Cobot Area", "ip_address": "192.168.3.2", "type": 0 }
+                                             ]
+            
+            editWorkspace:
+                description: workspace 정보 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            addWorkspace:
+                description: workspace 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            deleteWorkspace:
+                description: workspace 제거 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Delete Complete(affectedRows:1)"
+
+            user:
+                description: Successful operation
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {"id":1,"user_id":"admin","password":"admin","name":"","phone":null,"address":null,"permission":1,"use_grant":0,"create_date":"0","delete_date":null,"lastlogin_date":null},
+                                             {"id":2,"user_id":"admin2","password":"admin","name":"","phone":null,"address":null,"permission":1,"use_grant":0,"create_date":"0","delete_date":null,"lastlogin_date":null},
+                                             {"id":3,"user_id":"lhr1144","password":"1q2w3e4r","name":"","phone":null,"address":null,"permission":1,"use_grant":0,"create_date":"1677556987429","delete_date":null,"lastlogin_date":"1678089192727"},
+                                             ]
+            
+            info:
+                description: Successful operation
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {"id":1,"user_id":"admin","password":"admin","name":"","phone":null,"address":null,"permission":1,"use_grant":0,"create_date":"0","delete_date":null,"lastlogin_date":null}
+                                             ]
+
+            cobot:
+                description: Cobot 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {
+                                                "position_x": 0.00517982,
+                                                "position_y": -0.185095,
+                                                "position_z": 1.32842,
+                                                "rotation_u": 179.745,
+                                                "rotation_v": 179.572,
+                                                "rotation_w": 179.987,
+                                                "joint1": 0,
+                                                "joint2": 0,
+                                                "joint3": 0,
+                                                "joint4": 0,
+                                                "joint5": 0,
+                                                "joint6": 0,
+                                                "status": 0,
+                                                "operation": 0,
+                                                "gripper": 660,
+                                                "reg_date": "0"
+                                              }
+                                              ]
+            editCobot:
+                description: Cobot 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            AMR:
+                description: AMR 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {
+                                                "position_x": -3.645,
+                                                "position_y": -1.519,
+                                                "position_z": -4.71,
+                                                "rotation_u": -90,
+                                                "rotation_v": 0,
+                                                "rotation_w": 0,
+                                                "status": 0,
+                                                "operation": 336,
+                                                "reg_date": "1679450408355"
+                                              }
+                                             ]
+
+            editAMR:
+                description: AMR 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+                                             
+            operation:
+                description: Operation 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {
+                                                "idx": 113,
+                                                "cobot_id": 1,
+                                                "amr_id": 13,
+                                                "task": 0,
+                                                "order_time": "1678321639621",
+                                                "start_time": "1678321639621",
+                                                "end_time": "1678427799482"
+                                             }
+                                             ]
+
+            addTask:
+                description: Task 추가 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Add Complete(affectedRows:1)"
+
+            editObject:
+                description: Object 수정 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: string
+                                    example: "Edit Complete(affectedRows:1)"
+
+            ctask:
+                description: CurruntTask 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {
+                                                "o_id": 113,
+                                                "task": 4,
+                                                "order_time": "1678427779791",
+                                                "start_time": "1678427779908",
+                                                "end_time": "1678427799466"
+                                             }
+                                             ]
+            object:
+                description: Object 조회 결과
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "OK"
+                                status:
+                                    type: integer
+                                    example: 200
+                                message:
+                                    type: object
+                                    example: [
+                                             {
+                                                "o_id": 113,
+                                                "cluster": "[[0.5243100350306378,-0.11627833176924132,-1.0050611362350375,-0.5386404744332517,-0.9215402073933008,-179.09752903269165]]",
+                                                "moving": "[]",
+                                                "movedone": "[]"
+                                             }
+                                             ]
+        
+        404:
+            error:
+                description: Not Found
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "Error"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Not Found"
+
+            WrongId:
+                description: Wrong ID
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "ID is invalid."
+
+            PermissionDenied:
+                description: Awaiting approval
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Waiting for permission.Please contact system administrator."
+
+            WrongPassword:
+                description: Wrong Password
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Passwords do not match."
+
+            AMR:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check AMR ID"
+
+            cobot:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Cobot ID"
+
+            addEquip:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Type Name"
+
+            editEquip:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Equip ID"
+
+            deleteEquip:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Equip ID"
+
+            editType:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Type Name"
+
+            deleteType:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Type Values"
+                                    
+            endTask:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Input Value"
+
+            addTask:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Input Value"
+
+            editObject:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Operation ID"
+
+            addSite:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Please Input Site Name"
+
+            editSite:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Site ID"
+
+            deleteSite:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Site ID"
+
+            editWorkspace:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Site or Workspace ID"
+
+            
+            deleteWorkspace:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Site or Workspace ID"
+
+            deleteUser:
+                description: Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "ERROR"
+                                status:
+                                    type: integer
+                                    example: 404
+                                message:
+                                    type: string
+                                    example: "Check Input Value"
+        409:
+            error:
+                 description: Conflict
+                 content:
+                     application/json:
+                         schema:
+                             type: object
+                             properties:
+                                 result:
+                                     type: string
+                                     example: "Error"
+                                 status:
+                                     type: integer
+                                     example: 409
+                                 message:
+                                     type: string
+                                     example: "Conflict"
+        500:
+            error:
+                description: Internal Server Error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                result:
+                                    type: string
+                                    example: "Error"
+                                status:
+                                    type: integer
+                                    example: 500
+                                message:
+                                    type: string
+                                    example: "Internal Server Error"          
